@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Logo & Company Info */}
         <div className="flex items-center gap-3">
           <img
-            src={logo}
+            src={"/logo.png"}
             alt="Albilasan Logo"
             className="h-10 w-10 rounded-full"
           />
