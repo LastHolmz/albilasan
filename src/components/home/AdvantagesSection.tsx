@@ -1,21 +1,22 @@
-import { Clock, Edit3, TrendingUp } from 'lucide-react';
+import { Clock, Edit3, TrendingUp } from "lucide-react";
 
 const advantages = [
   {
     icon: Clock,
-    title: 'توفير الوقت',
-    description: 'احصل على مشروع جاهز للعمل فوراً دون الحاجة لإنشاء مشروع من الصفر'
+    title: "توفير الوقت",
+    description:
+      "احصل على مشروع جاهز للعمل فوراً دون الحاجة لإنشاء مشروع من الصفر",
   },
   {
     icon: Edit3,
-    title: 'سهولة التعديل',
-    description: 'جميع المشاريع قابلة للتخصيص والتطوير حسب احتياجاتك ومتطلباتك'
+    title: "سهولة التعديل",
+    description: "جميع المشاريع قابلة للتخصيص والتطوير حسب احتياجاتك ومتطلباتك",
   },
   {
     icon: TrendingUp,
-    title: 'عوائد سريعة',
-    description: 'مشاريع مدروسة ومربحة تضمن لك عوائد مالية سريعة ومستدامة'
-  }
+    title: "عوائد سريعة",
+    description: "مشاريع مدروسة ومربحة تضمن لك عوائد مالية سريعة ومستدامة",
+  },
 ];
 
 export function AdvantagesSection() {
@@ -26,16 +27,16 @@ export function AdvantagesSection() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             لماذا البيلسان؟
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mx-auto">
             نوفر لك أفضل الحلول الاستثمارية المدروسة والجاهزة للتنفيذ
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {advantages.map((advantage, index) => {
             const IconComponent = advantage.icon;
             return (
-              <div 
+              <div
                 key={index}
                 className="text-center card-lift bg-card p-8 rounded-lg border border-border"
               >

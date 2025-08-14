@@ -24,6 +24,7 @@ import DashboardOrdersEdit from "./pages/DashboardOrdersEdit";
 import DashboardOrdersComplete from "./pages/DashboardOrdersComplete";
 import DashboardMessages from "./pages/DashboardMessages";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/layout/Footer";
 
 const queryClient = new QueryClient();
 
@@ -46,18 +47,37 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/projects" element={<DashboardProjects />} />
-            <Route path="/dashboard/projects/verify" element={<DashboardProjectsVerify />} />
-            <Route path="/dashboard/projects/new" element={<DashboardProjectsNew />} />
-            <Route path="/dashboard/projects/edit/:id" element={<DashboardProjectsEdit />} />
+            <Route
+              path="/dashboard/projects/verify"
+              element={<DashboardProjectsVerify />}
+            />
+            <Route
+              path="/dashboard/projects/new"
+              element={<DashboardProjectsNew />}
+            />
+            <Route
+              path="/dashboard/projects/edit/:id"
+              element={<DashboardProjectsEdit />}
+            />
             <Route path="/dashboard/orders" element={<DashboardOrders />} />
-            <Route path="/dashboard/orders/new" element={<DashboardOrdersNew />} />
-            <Route path="/dashboard/orders/edit/:id" element={<DashboardOrdersEdit />} />
-            <Route path="/dashboard/orders/complete" element={<DashboardOrdersComplete />} />
+            <Route
+              path="/dashboard/orders/new"
+              element={<DashboardOrdersNew />}
+            />
+            <Route
+              path="/dashboard/orders/edit/:id"
+              element={<DashboardOrdersEdit />}
+            />
+            <Route
+              path="/dashboard/orders/complete"
+              element={<DashboardOrdersComplete />}
+            />
             <Route path="/dashboard/messages" element={<DashboardMessages />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
           <MobileNav />
+          <Footer />
         </div>
       </BrowserRouter>
     </TooltipProvider>

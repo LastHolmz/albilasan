@@ -1,22 +1,25 @@
-import { useParams, Navigate, Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  MapPin, 
-  TrendingUp, 
-  DollarSign, 
-  Phone, 
-  Mail, 
+import { useParams, Navigate, Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  MapPin,
+  TrendingUp,
+  DollarSign,
+  Phone,
+  Mail,
   Share2,
-  ArrowRight,
-  MessageCircle
-} from 'lucide-react';
-import { mockProjects } from '@/data/projects';
+  MessageCircle,
+  ArrowLeft,
+  X,
+  Facebook,
+} from "lucide-react";
+import { mockProjects } from "@/data/projects";
+import { toast } from "sonner";
 
 const ProjectDetails = () => {
   const { id } = useParams();
-  const project = mockProjects.find(p => p.id === parseInt(id || ''));
+  const project = mockProjects.find((p) => p.id === parseInt(id || ""));
 
   if (!project) {
     return <Navigate to="/projects" replace />;
@@ -25,26 +28,37 @@ const ProjectDetails = () => {
   const handleWhatsAppContact = () => {
     if (project.contact?.phone) {
       const message = `مرحباً، أهتم بمشروع: ${project.title}`;
-      const whatsappUrl = `https://wa.me/${project.contact.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
+      const whatsappUrl = `https://wa.me/${project.contact.phone.replace(
+        /\D/g,
+        ""
+      )}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, "_blank");
     }
   };
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
     const text = `تصفح هذا المشروع الرائع: ${project.title}`;
-    
+
     const shareUrls = {
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
-      copy: () => navigator.clipboard.writeText(url)
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        url
+      )}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        text
+      )}&url=${encodeURIComponent(url)}`,
+      copy: () => navigator.clipboard.writeText(url),
     };
 
-    if (platform === 'copy') {
+    if (platform === "copy") {
       shareUrls.copy();
+      toast.success("تم نسخ الرابط إلى الحافظة!");
       // You could show a toast here
     } else {
-      window.open(shareUrls[platform as keyof typeof shareUrls] as string, '_blank');
+      window.open(
+        shareUrls[platform as keyof typeof shareUrls] as string,
+        "_blank"
+      );
     }
   };
 
@@ -53,10 +67,14 @@ const ProjectDetails = () => {
       <div className="container mx-auto px-4">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 mb-8 text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-primary">الرئيسية</Link>
-          <ArrowRight className="h-4 w-4" />
-          <Link to="/projects" className="hover:text-primary">المشاريع</Link>
-          <ArrowRight className="h-4 w-4" />
+          <Link to="/" className="hover:text-primary">
+            الرئيسية
+          </Link>
+          <ArrowLeft className="h-4 w-4" />
+          <Link to="/projects" className="hover:text-primary">
+            المشاريع
+          </Link>
+          <ArrowLeft className="h-4 w-4" />
           <span className="text-foreground">{project.title}</span>
         </div>
 
@@ -133,15 +151,15 @@ const ProjectDetails = () => {
                       {project.revenue}
                     </div>
                   </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg">
+
+                  {/* <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg">
                     <span className="font-medium">سعر البيع</span>
                     <div className="flex items-center text-primary font-bold">
                       <DollarSign className="ml-1 h-4 w-4" />
                       {project.price}
                     </div>
-                  </div>
-                  
+                  </div> */}
+
                   <div className="flex items-center justify-between p-3 bg-secondary rounded-lg">
                     <span className="font-medium">الإيجار الشهري</span>
                     <div className="flex items-center font-bold">
@@ -153,22 +171,18 @@ const ProjectDetails = () => {
 
                 {/* Contact Actions */}
                 <div className="space-y-3 pt-4 border-t">
-                  <Button 
-                    onClick={handleWhatsAppContact}
-                    className="w-full bg-[#25D366] hover:bg-[#22C55E] text-white btn-lift"
-                  >
-                    <MessageCircle className="ml-2 h-4 w-4" />
-                    تواصل عبر الواتساب
-                  </Button>
-                  
-                  <Button 
-                    asChild
-                    variant="outline" 
-                    className="w-full btn-lift"
-                  >
-                    <Link to="/order">
-                      إبداء الاهتمام
-                    </Link>
+                  <a target="_blank" href="https://wa.me/+2188666458">
+                    <Button
+                      onClick={handleWhatsAppContact}
+                      className="w-full bg-[#25D366] hover:bg-[#22C55E] text-white btn-lift"
+                    >
+                      <MessageCircle className="ml-2 h-4 w-4" />
+                      تواصل عبر الواتساب
+                    </Button>
+                  </a>
+
+                  <Button asChild variant="outline" className="w-full btn-lift">
+                    <Link to="/order">إبداء الاهتمام</Link>
                   </Button>
                 </div>
               </CardContent>
@@ -183,11 +197,18 @@ const ProjectDetails = () => {
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Phone className="h-4 w-4 text-primary" />
-                    <span className="text-muted-foreground">{project.contact.phone}</span>
+                    <span dir="ltr" className="text-muted-foreground">
+                      <a href={`tel:+218928666458`}>+218 92 8666 458</a>
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="h-4 w-4 text-primary" />
-                    <span className="text-muted-foreground">{project.contact.email}</span>
+                    <span className="text-muted-foreground">
+                      {/* {project.contact.email} */}
+                      <a href={`mailto:${project.contact.email}`}>
+                        {project.contact.email}
+                      </a>
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -200,26 +221,28 @@ const ProjectDetails = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
-                    onClick={() => handleShare('facebook')}
+                    onClick={() => handleShare("facebook")}
                     className="flex-1"
                   >
-                    <Share2 className="h-4 w-4" />
+                    فيسبوك
+                    <Facebook className="h-4 w-4" />
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
-                    onClick={() => handleShare('twitter')}
+                    onClick={() => handleShare("twitter")}
                     className="flex-1"
                   >
-                    <Share2 className="h-4 w-4" />
+                    إكس
+                    <X className="h-4 w-4" />
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
-                    onClick={() => handleShare('copy')}
+                    onClick={() => handleShare("copy")}
                     className="flex-1"
                   >
                     نسخ الرابط
